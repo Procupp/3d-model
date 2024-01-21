@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Model Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f0f0f0; /* Grey background color */
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include Three.js library -->
+  <script src="https://threejs.org/build/three.js"></script>
+
+  <script>
+    // Set up Three.js scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Raw OBJ model data (replace with your actual GitHub permalink)
+    const objModelDataUrl = 'https://github.com/Procupp/3d-model/blob/a64be2e72adf77bd8fd219df84c0905c657106d5/model.obj';
+
+    // Load the 3D model
+    const loader = new THREE.OBJLoader();
+    loader.load(objModelDataUrl, function (object) {
+      scene.add(object);
+
+      // Set up camera position
+      camera.position.z = 5;
+
+      // Add animation
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    });
+  </script>
+</body>
+</html>
